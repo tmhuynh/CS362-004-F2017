@@ -1,0 +1,10 @@
+﻿The task is to fill inputChar and inputString with code so that random generations of characters spell out “error.”
+
+
+The inputChar function has to be able to return each char that is checked in the statements. So the implementation returns a randomly generated ASCII char within the range of 32, and 126. This range includes the chars that are in the if statements within testme.c. 
+
+
+Due to the potential long run time of the function inputString, I realized that I did not need to check everything, only string inputs between a and z specifically because “error” is all lowercase. In ASCII this is 97 through 122, so this is what the function checked.
+
+
+I was able to run the functions to completion 3 times, with large variance in completion times, but all were well under 5 minutes.
