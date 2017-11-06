@@ -40,8 +40,7 @@ int main() {
 			if ((getCost(gState->hand[player][copper]) + 3) > getCost(silver)) {
 				printf("Test %i cut short\n", i1);
 			} else {
-				printf("%d test failed\n", i1);
-				//printf("cardEffect returned %d\n", retVal);
+				printf(" %d test failed\n", i1);
 				failures++;
 			}
 		} else {

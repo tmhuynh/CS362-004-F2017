@@ -30,29 +30,21 @@ int main() {
 
 	  	initializeGame(players, k, seed, &state);
 
-		//Initiate valid state variables
 		state.deckCount[player] = rand() % MAX_DECK;
 		state.discardCount[player] = rand() % MAX_DECK;
 		state.handCount[player] = rand() % MAX_HAND;
 
-		// set up all the pre-call variables
 		preHandCount = state.handCount[player];
 		preDeckCount = state.deckCount[player];
 
 		cardEffect(smithy, 1, 1, 1, &state, handPos, 0);
 
-		// record post-call variables
 		postHandCount = state.handCount[player];
 		postDeckCount = state.deckCount[player];
 
-		// calculations to test accuracy of this test
 		handDiff = postHandCount - preHandCount;
 		deckDiff = preDeckCount - postDeckCount;
 
-		// if ((handDiff-deckDiff) != 0) {
-		// 	wrongCount = wrongCount+1;
-		// }
-		// else
 		if (handDiff != 2 && postDeckCount >= 0) {
 			wrongCount = wrongCount+1;
 		}
