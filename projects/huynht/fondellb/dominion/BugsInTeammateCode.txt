@@ -1,0 +1,13 @@
+Bugs found from my test used on teammates code
+
+Smithy: 1
+	PLayer hand count was not changed correctly.
+
+Adventurer:2
+	Treasure cards not added to hand.
+	Incorrect number of cards added to discard.
+
+Council Room: 3
+	Buy count was not changed correctly.
+	Player hand count was not changed correctly.
+	Other players' hand counts were not changed correctly.
