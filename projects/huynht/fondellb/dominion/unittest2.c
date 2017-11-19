@@ -1,73 +1,53 @@
-//
-//  unittest2.c
-//  Dominion-Xcode_Local-Assignment_3
-//
-//  Created by Benjamin Fondell on 10/21/17.
-//  Copyright © 2017 Benjamin Fondell. All rights reserved.
-//
-// Description: This is a unit test for the buyCard function in dominion.c
-
-
 #include <stdio.h>
-#include "macros.h"
-#include <stdlib.h>
 #include "dominion.h"
-#include "rngs.h"
-#include <time.h>
-#include "dominion_helpers.h"
 
+/* Unit Test for buy card */
 
-int main(){
-    
-     printf("***************************************************************************************************");
-     printf("***************************************************************************************************");
-    
-    struct gameState state;
-    int s;
-    int k[10] = {adventurer, gardens, minion, village, embargo, mine, cutpurse, baron, tribute, smithy};
-    initializeGame(2, k, 2, &state);
-    int test_count = 0;
-    
-    state.numBuys = 0;
-    s = buyCard(5, &state);
-    
-    printf("\nbuyCard: test for calling buyCard with 0 buys.\n" );
-    MY_ASSERT(s == -1);
-    if(s == -1)
-    {
-        
-        test_count++;
-    }
-    
-    state.numBuys = 5;
-    state.coins = 0;
-    s = buyCard(5, &state);
-    
-    printf("\nbuyCard: test for calling buyCard with 0 coins.\n" );
-    MY_ASSERT(s == -1)
-    if(s == -1)
-    {
-        test_count++;
-    }
-    
-    state.coins = 30;
-    s = buyCard(5, &state);
-    
-    printf("\nbuyCard: test passed for calling buyCard with too many coins.\n" );
-    MY_ASSERT(s == 0)
-    if(s == 0)
-    {
-        test_count++;
-    }
-    
-    if (test_count == 3)
-    {
-        printf("TEST SUCCESSFULLY COMPLETED\n");
-    }
-    else printf("ONE OR MORE TESTS FAILED!\n");
-    
-    return 0;
-    
-     printf("***************************************************************************************************");
-     printf("***************************************************************************************************");
+int main() {
+	int i;
+	int bugs, found = 0;
+
+	struct gameState state;
+
+	state.deckCount[0] = 5;
+	state.deck[0][0] = copper;
+	state.deck[0][1] = copper;
+	state.deck[0][2] = copper;
+	state.deck[0][3] = copper;
+	state.deck[0][4] = copper;
+	state.deck[0][5] = copper;
+	state.deck[0][6] = copper;
+
+	state.deck[0][7] = estate;
+	state.deck[0][8] = estate;
+	state.deck[0][9] = estate;
+
+	buyCard(mine, &state);
+
+	printf("Starting test for Unit Test 2...\n");
+
+	if (state.deckCount[0] > 11) {
+		printf("The player has received too many cards.\n");
+		bugs++;
+	}
+
+	for (i = 0; i < state.deckCount[0]; i++) {
+		if (state.deck[0][i] == mine) {
+			found = 1;
+			break;
+		}
+	}
+
+	if (!found) {
+		printf("Card was not added to deck.\n");
+		bugs++;
+	}
+
+	if (bugs > 0)
+		printf("Unit Test 2: %d bugs.\n", bugs);
+	else
+		printf("Unit Test 2 was successful.\n");
+
+	return 0;
 }
+

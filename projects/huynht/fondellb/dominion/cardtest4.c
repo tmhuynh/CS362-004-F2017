@@ -1,71 +1,32 @@
-//
-//  cardtest4.c
-//  Dominion-Xcode_Local-Assignment_3
-//
-//  Created by Benjamin Fondell on 10/21/17.
-//  Copyright © 2017 Benjamin Fondell. All rights reserved.
-//
-// Description: This is a test of the village car in dominion.c 
-
 #include <stdio.h>
-#include "macros.h"
-#include "dominion_helpers.h"
 #include "dominion.h"
-#include "rngs.h"
-#include <stdlib.h>
 
-int main (int argc, char** argv)
-{
-     printf("***************************************************************************************************");
-     printf("***************************************************************************************************");
-    
-    struct gameState state;
-    int passed = 0;
-    state.numActions = 0;
-    state.handCount[0] = 1;
-    state.hand[0][0] = village;
-    state.deckCount[0] = 1;
-    int test_count = 0;
-    
-    passed = cardEffect(village, 0, 0, 0, &state, 0,NULL);
-    
-    printf("\ncardEffect(village): test that village was successfully called and returned.\n" );
-    MY_ASSERT(passed == 0);
-    if (passed == 0)
-    {
-        test_count++;
-    }
-    
-    printf("\ncardEffect(village): test that village added 2 actions.\n" );
-    MY_ASSERT(state.numActions == 2);
-    if (state.numActions == 2)
-    {
-        test_count++;
-    }
-    
-    
-    printf("\ncardEffect(village): test that village has been discarded and a card was added to the hand.\n" );
-    MY_ASSERT(state.handCount[whoseTurn(&state)] == 1);
-    if (state.handCount[whoseTurn(&state)] == 1)
-    {
-        test_count++;
-    }
-    
-    printf("\ncardEffect(village): test that village drew a card from the deck.\n");
-    MY_ASSERT(state.deckCount[0] == 0);
-    if (state.deckCount[0] == 0)
-    {
-        test_count++;
-    }
-    
-    if (test_count == 4)
-    {
-        printf("\nTEST SUCCESSFULLY COMPLETED\n");
-    }
-    
-     printf("***************************************************************************************************");
-     printf("***************************************************************************************************");
+/* Gardens Card Test */
 
-    return 0;
-    
+int main() {
+	int bugs = 0;
+
+	struct gameState *state1 = newGame();
+	struct gameState *state2 = newGame();
+
+	state1->hand[0][0] = gardens;
+
+	memcpy(state2, state1, sizeof(struct gameState));
+
+	playCard(0, 0, 0, 0, state1);
+
+	printf("Gardens Test starting...\n");
+
+	if (memcmp(state1, state2, sizeof(struct gameState)) != 0) {
+		printf("The game state changed after card was played.\n");
+		bugs++;
+	}
+
+	if (bugs > 0)
+		printf("Gardens Test: %d bugs.\n", bugs);
+	else
+		printf("Gardens Test: Test was successful.\n");
+
+	return 0;
 }
+
